@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Episode {
+  id              String   @id @default(cuid())
+  guid            String   @unique // This is the unique identifier from the RSS feed
+  feed_url        String   // The URL of the feed this came from
+  title           String
+  description     String?  @db.Text
+  pub_date        DateTime
+  link            String?
+  audio_url       String?
+  audio_length    String?
+  audio_type      String?
+  itunes_duration String?
+  itunes_author   String?
+  creator         String?
+  itunes_image    String?
+  
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@index([guid])
+  @@index([feed_url])
+  @@index([pub_date])
+}
