@@ -40,10 +40,10 @@ async function syncFeeds() {
                 const pubDate = item.pubDate ? new Date(item.pubDate) : new Date()
 
                 // Extract Enclosure Data
-                let audioUrl = null, audioLength = null, audioType = null;
+                let audioUrl = null, audioLength: string | null = null, audioType = null;
                 if (item.enclosure) {
                     audioUrl = item.enclosure.url;
-                    audioLength = item.enclosure.length;
+                    audioLength = item.enclosure.length ? String(item.enclosure.length) : null;
                     audioType = item.enclosure.type;
                 }
 
